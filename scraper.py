@@ -1,4 +1,5 @@
 import asyncio
+import logging
 from playwright.async_api import async_playwright
 
 
@@ -7,6 +8,7 @@ class QuotesScraper:
         self.input_url = input_url
         self.results_saver = results_saver
         self.all_quotes = []
+        self.logger = logging.getLogger(__name__)
 
     async def get_quotes(self, page):
         loaded_quotes = page.locator('#quotesPlaceholder')
