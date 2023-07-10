@@ -1,14 +1,16 @@
 import asyncio
-import os
 from dotenv import load_dotenv
-from scraper import QuotesScraper
-from saving import JsonResultsSaver
 
+from src.scraper import QuotesScraper
+from src.saving import JsonResultsSaver
+from src import config
 
 load_dotenv()
 
-input_url = os.getenv('INPUT_URL')
-output_file = os.getenv('OUTPUT_FILE')
+config.configure_logging()
+input_url = config.get_input_url()
+output_file = config.get_output_file()
+proxy = config.get_proxy()
 
 
 async def main():
@@ -16,6 +18,7 @@ async def main():
 
     scraper = QuotesScraper(
                         input_url=input_url,
+                        proxy=proxy,
                         results_saver=results_saver)
     await scraper.scrape_all_pages()
 
