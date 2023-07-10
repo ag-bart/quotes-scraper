@@ -4,8 +4,9 @@ from playwright.async_api import async_playwright
 
 
 class QuotesScraper:
-    def __init__(self, input_url, results_saver):
+    def __init__(self, input_url, proxy, results_saver):
         self.input_url = input_url
+        self.proxy = proxy
         self.results_saver = results_saver
         self.all_quotes = []
         self.logger = logging.getLogger(__name__)
@@ -49,7 +50,7 @@ class QuotesScraper:
         async with async_playwright() as playwright:
             page_number = 1
 
-            browser = await playwright.chromium.launch()
+            browser = await playwright.chromium.launch(proxy=self.proxy)
             page = await browser.new_page()
 
             await page.goto(self.input_url)

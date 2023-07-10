@@ -19,6 +19,7 @@ async def main():
 
     scraper = QuotesScraper(
                         input_url=input_url,
+                        proxy=proxy,
                         results_saver=results_saver)
     await scraper.scrape_all_pages()
 
