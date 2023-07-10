@@ -1,10 +1,9 @@
 import asyncio
 from dotenv import load_dotenv
 
-from scraper import QuotesScraper
-from saving import JsonResultsSaver
-import config
-
+from src.scraper import QuotesScraper
+from src.saving import JsonResultsSaver
+from src import config
 
 load_dotenv()
 

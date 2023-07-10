@@ -1,5 +1,5 @@
 import json
-from saving_interface import ResultsSaver
+from src.saving_interface import ResultsSaver
 
 
 class JsonResultsSaver(ResultsSaver):
