@@ -33,7 +33,6 @@ class QuotesScraper:
 
     async def scrape_single_page(self, page, page_number):
         self.logger.info('Scraping page %s', page_number)
-
         await self.get_quotes(page)
         await self.next_page(page, page_number)
 
@@ -43,20 +42,18 @@ class QuotesScraper:
         while await next_page_button.is_visible():
             page_number += 1
             await asyncio.gather(next_page_button.click())
-
             await self.scrape_single_page(page, page_number)
 
     async def scrape_all_pages(self):
         async with async_playwright() as playwright:
             page_number = 1
-
             browser = await playwright.chromium.launch(proxy=self.proxy)
             page = await browser.new_page()
-
             await page.goto(self.input_url)
             await self.scrape_single_page(page, page_number)
 
             await browser.close()
+
             self.logger.info('Scraping finished, saving to file...')
             self.results_saver.save_results(self.all_quotes)
-            self.logger.info('Results saved succesfully.')
+            self.logger.info('Results saved successfully.')
