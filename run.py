@@ -1,21 +1,18 @@
 import asyncio
-import os
-import logging
 from dotenv import load_dotenv
+
 from scraper import QuotesScraper
 from saving import JsonResultsSaver
+import config
 
-
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 load_dotenv()
 
-input_url = os.getenv('INPUT_URL')
-output_file = os.getenv('OUTPUT_FILE')
+config.configure_logging()
+input_url = config.get_input_url()
+output_file = config.get_output_file()
+proxy = config.get_proxy()
 
-        'username': usr,
-        'password': pswrd
-}
 
 async def main():
     results_saver = JsonResultsSaver(output_file)
