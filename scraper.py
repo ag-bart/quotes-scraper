@@ -31,6 +31,7 @@ class QuotesScraper:
         self.all_quotes.extend(quotes)
 
     async def scrape_single_page(self, page, page_number):
+        self.logger.info('Scraping page %s', page_number)
 
         await self.get_quotes(page)
         await self.next_page(page, page_number)
@@ -55,4 +56,6 @@ class QuotesScraper:
             await self.scrape_single_page(page, page_number)
 
             await browser.close()
+            self.logger.info('Scraping finished, saving to file...')
             self.results_saver.save_results(self.all_quotes)
+            self.logger.info('Results saved succesfully.')
